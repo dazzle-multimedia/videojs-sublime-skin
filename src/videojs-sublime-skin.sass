@@ -14,8 +14,10 @@ $fullscreen-height: 14px
 .vjs-sublime-skin
   color: white
 
+  .vjs-poster:focus, .vjs-control:focus
+    outline: none
+
   .vjs-big-play-button
-    cursor: pointer
     line-height: $play-button-size
     margin: -($play-button-size / 2)
     opacity: 1
@@ -37,20 +39,25 @@ $fullscreen-height: 14px
   &.vjs-controls-disabled, &.vjs-has-started, &.vjs-using-native-controls
     .vjs-big-play-button
       opacity: 0
+      pointer-events: none
 
   .vjs-control-bar
     height: $control-height
     opacity: 0
+    pointer-events: none
     +position(absolute, null 0 0 0)
-    z-index: 2s
+    z-index: 2
   // Fade the control bar in quickly when the video starts.
   &.vjs-has-started .vjs-control-bar
     opacity: 1
+    pointer-events: auto
     +transition(opacity 100ms $ease-in-out-quad)
   // Fade the control bar out slowly when the video is playing for a while.
   &.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar
     opacity: 0
     +transition(opacity 1s $ease-in-out-quad)
+  &.vjs-has-started .vjs-poster
+    display: none
   // Hide the control bar when it's not needed/wanted.
   &.vjs-using-native-controls .vjs-control-bar,
   &.vjs-controls-disabled .vjs-control-bar
@@ -108,8 +115,6 @@ $fullscreen-height: 14px
       right: 0
 
   .vjs-fullscreen-control
-    $width: 22px
-    $height: 14px
     border: 3px solid white
     box-sizing: border-box
     cursor: pointer
@@ -158,4 +163,5 @@ $fullscreen-height: 14px
   .vjs-subtitles-button,
   .vjs-captions-button,
   .vjs-mute-control,
+  .vjs-hidden,
     display: none
